@@ -13,12 +13,15 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object StringGrid1: TStringGrid
+  object StringGrid: TStringGrid
     Left = 0
     Top = 0
     Width = 862
     Height = 606
     Align = alClient
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
     TabOrder = 0
+    OnDrawCell = StringGridDrawCell
+    OnSetEditText = StringGridSetEditText
   end
 end

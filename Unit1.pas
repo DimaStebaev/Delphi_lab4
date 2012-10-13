@@ -8,7 +8,11 @@ uses
 
 type
   TForm1 = class(TForm)
-    StringGrid1: TStringGrid;
+    StringGrid: TStringGrid;
+    procedure StringGridDrawCell(Sender: TObject; ACol, ARow: Integer;
+      Rect: TRect; State: TGridDrawState);
+    procedure StringGridSetEditText(Sender: TObject; ACol, ARow: Integer;
+      const Value: String);
   private
     { Private declarations }
   public
@@ -21,5 +25,25 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm1.StringGridDrawCell(Sender: TObject; ACol, ARow: Integer;
+  Rect: TRect; State: TGridDrawState);
+begin
+if ( Acol>=stringgrid.FixedCols)and (ARow >=stringgrid.FixedRows) and
+  ((Acol = stringgrid.ColCount -1) or
+   (Arow = stringgrid.rowCount -1)) then
+begin
+  StringGrid.Canvas.Brush.Color := clGray;
+  StringGrid.Canvas.Font.Color := clBlack;
+  StringGrid.Canvas.FillRect(Rect);
+  StringGrid.Canvas.TextOut(Rect.Left, Rect.Top, StringGrid.Cells[ACol, ARow]);
+end;
+end;
+
+procedure TForm1.StringGridSetEditText(Sender: TObject; ACol,
+  ARow: Integer; const Value: String);
+begin
+showmessage('event');
+end;
 
 end.
